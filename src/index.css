@@ -3,7 +3,7 @@ body {
 }
 
 .top-pane {
-  background-color: hsl(225, 6%, 25%);
+  background-color: hsl(224, 43%, 10%);
 }
 
 .pane {
@@ -17,7 +17,7 @@ body {
   display: flex;
   flex-direction: column;
   padding: .5rem;
-  background-color: hsl(225, 6%, 25%);
+  background-color: hsl(226, 19%, 58%);
 }
 
 .editor-container.collapsed {
@@ -56,4 +56,15 @@ body {
   border-bottom-right-radius: .5rem;
   border-bottom-left-radius: .5rem;
   overflow: hidden;
+}
+.save-btn{
+  border-radius: .5rem;
+  background-color: rgb(85, 192, 85);
+}
+.revert-btn{
+  border-radius: .5rem;
+}
+#timestamp{
+  color: whitesmoke;
+  font-size: x-small;
 }
