@@ -16,27 +16,25 @@ export default function Editor(props) {
   const [currentCode, setCurrentCode] = useState(value);
   const [isClicked, setIsClicked] = useState(false);
 
-  // <-codeversion-control->
   const [codeVersions, setCodeVersions] = useState([]);
+
   const saveCodeVersion = () => {
     const newVersion = {
-      id: uuidv4(), // Generate a unique identifier using a library like `uuid` or a custom implementation
-      timestamp: new Date().toLocaleString(), // Store the timestamp when the version is saved
-      code: value, // Replace `currentCode` with the variable holding the user's code
+      id: uuidv4(),
+      timestamp: new Date().toLocaleString(),
+      code: value,
     };
 
     setCodeVersions((prevVersions) => [...prevVersions, newVersion]);
   };
+
   const handleVersionRevert = (version) => {
-    // Update the code with the selected version
     setIsClicked(true);
-    setCurrentCode(version.code);
-    console.log(currentCode);
+    setCurrentCode(version.code); // Update the currentCode with the selected version's code
   };
 
-  //end
-
   function handleChange(editor, data, value) {
+    setCurrentCode(value); // Update the currentCode when the user makes changes
     onChange(value);
   }
 
@@ -53,38 +51,23 @@ export default function Editor(props) {
             <FontAwesomeIcon icon={open ? faCompressAlt : faExpandAlt} />
           </button>
         </div>
-        {isClicked ? (
-          <ControlledEditor
-            onBeforeChange={handleChange}
-            value={currentCode}
-            className="code-mirror-wrapper"
-            options={{
-              lineWrapping: true,
-              lint: true,
-              mode: language,
-              theme: "material",
-              lineNumbers: true,
-            }}
-          />
-        ) : (
-          <ControlledEditor
-            onBeforeChange={handleChange}
-            value={value}
-            className="code-mirror-wrapper"
-            options={{
-              lineWrapping: true,
-              lint: true,
-              mode: language,
-              theme: "material",
-              lineNumbers: true,
-            }}
-          />
-        )}
+        <ControlledEditor
+          onBeforeChange={handleChange}
+          value={isClicked ? currentCode : value} // Use the updated currentCode if revert button is clicked
+          className="code-mirror-wrapper"
+          options={{
+            lineWrapping: true,
+            lint: true,
+            mode: language,
+            theme: "material",
+            lineNumbers: true,
+          }}
+        />
+
         <button className="save-btn" onClick={saveCodeVersion}>
           Save Version
         </button>
 
-        {/* Render version history */}
         {codeVersions.map((version) => (
           <div key={version.id}>
             <span id="timestamp">{version.timestamp}</span>

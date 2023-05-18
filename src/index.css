@@ -60,9 +60,13 @@ body {
 .save-btn{
   border-radius: .5rem;
   background-color: rgb(85, 192, 85);
+  color:white;
+  border: 0px;
 }
 .revert-btn{
   border-radius: .5rem;
+  color:white;
+  background-color: blue;
 }
 #timestamp{
   color: whitesmoke;
